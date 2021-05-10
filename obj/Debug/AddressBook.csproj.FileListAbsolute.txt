@@ -1,0 +1,7 @@
+C:\Users\Filip\source\repos\CskapBasic\PROGMET\AddressList\AddressBook\bin\Debug\AddressBook.exe.config
+C:\Users\Filip\source\repos\CskapBasic\PROGMET\AddressList\AddressBook\bin\Debug\AddressBook.exe
+C:\Users\Filip\source\repos\CskapBasic\PROGMET\AddressList\AddressBook\bin\Debug\AddressBook.pdb
+C:\Users\Filip\source\repos\CskapBasic\PROGMET\AddressList\AddressBook\obj\Debug\AddressBook.csprojAssemblyReference.cache
+C:\Users\Filip\source\repos\CskapBasic\PROGMET\AddressList\AddressBook\obj\Debug\AddressBook.csproj.CoreCompileInputs.cache
+C:\Users\Filip\source\repos\CskapBasic\PROGMET\AddressList\AddressBook\obj\Debug\AddressBook.exe
+C:\Users\Filip\source\repos\CskapBasic\PROGMET\AddressList\AddressBook\obj\Debug\AddressBook.pdb
