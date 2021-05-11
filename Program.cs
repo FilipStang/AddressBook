@@ -7,18 +7,6 @@ namespace AddressBook
 {
     class Program
     {
-
-        public static void DeleteLinesFromFile(string strLineToDelete)
-        {
-            //string line = null;
-            strLineToDelete = "the line i want to delete";
-            string[] lines;
-            var listOfEntries = new List<string>();
-            
-
-
-        }
-
         static void Main(string[] args)
         {
             //list person
@@ -26,8 +14,6 @@ namespace AddressBook
             string strFilePath = "";
             bool menu = true;
             string[] contactInfo = new string[4];
-
-
             do
             {
                 Console.WriteLine("******Welcome to my address book program*********");
@@ -69,41 +55,27 @@ namespace AddressBook
                         Console.WriteLine("Remove contact ");
                         Console.WriteLine("Type the contact's name.");
                         string contactTobeRemoved = Console.ReadLine();
-                        //DeleteLinesFromFile(contactName);
                         
-                        
-                        
-                        
-                        bool found = false;
-                        string[] splitedEntries = new string[100000000];
-                        for (int i = 0; i < personlist.Count(); i++)
+                        //*https://social.msdn.microsoft.com/Forums/vstudio/en-US/c91c66f9-c1e7-4036-8a22-2101620bca7b/how-to-delete-a-line-from-the-file-using-c
+                        string[] Lines = File.ReadAllLines("C:\\Users\\Filip\\source\\repos\\CskapBasic\\PROGMET\\AddressList\\AddressBook\\Entries.lis");
+                        File.Delete("C:\\Users\\Filip\\source\\repos\\CskapBasic\\PROGMET\\AddressList\\AddressBook\\Entries.lis");// Deleting the file
+                        using (StreamWriter sw = File.AppendText("C:\\Users\\Filip\\source\\repos\\CskapBasic\\PROGMET\\AddressList\\AddressBook\\Entries.lis"))
+
                         {
-                            if (personlist[i].Name == contactTobeRemoved) 
-                            found = true;
-                        }
-                        strFilePath = "C:\\Users\\Filip\\source\\repos\\CskapBasic\\PROGMET\\AddressList\\AddressBook\\Entries.lis";
-
-
-
-
-
-
-                        using (StreamReader reader = new StreamReader(strFilePath))
-                        {
-                            string line;
-                            while ((line = reader.ReadLine()) != null)                            // Read line by line  
+                            foreach (string line in Lines)
                             {
-                                splitedEntries = line.Split(';');
-                                
+                                if (line.IndexOf(contactTobeRemoved) >= 0)
+                                {
+                                    //Skip the line
+                                    continue;
+                                }
+                                else
+                                {
+                                    sw.WriteLine(line);
+                                }
                             }
                         }
-                        for (int i = 0; i < splitedEntries.Length; i++)
-                        {
-
-                        }
-
-
-
+                        //-------------END*
                         break;
                     case "3":
                         Console.Clear();
@@ -121,7 +93,6 @@ namespace AddressBook
                                 Console.WriteLine("-------------------------------");
                             }
                         }
-
                         Console.WriteLine("******************************************************************************");
                         break;
                     case "4":
