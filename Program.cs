@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 
 namespace AddressBook
 {
@@ -9,33 +10,24 @@ namespace AddressBook
 
         public static void DeleteLinesFromFile(string strLineToDelete)
         {
-            //https://stackoverflow.com/questions/1245243/delete-specific-line-from-a-text-file
-            string strFilePath = "C:\\Users\\Filip\\source\repos\\CskapBasic\\PROGMET\\AddressList\\AddressBook\\TextFile1.txt";
-            string strSearchText = strLineToDelete;
-            string strOldText;
-            string n = "";
-            StreamReader sr = File.OpenText(strFilePath);
-            while ((strOldText = sr.ReadLine()) != null)
-            {
-                if (!strOldText.Contains(strSearchText))
-                {
-                    n += strOldText + Environment.NewLine;
-                }
-            }
-            sr.Close();
-            File.WriteAllText(strFilePath, n);
+            //string line = null;
+            strLineToDelete = "the line i want to delete";
+            string[] lines;
+            var listOfEntries = new List<string>();
+            
+
+
         }
 
         static void Main(string[] args)
         {
             //list person
             var personlist = new List<Person>();
-            string name = "NAME";
-            string address = "ADDRESS";
-            string email = "EMAIL";
-            string telephone = "TELEPHONE";
+            string strFilePath = "";
             bool menu = true;
-            //                                                                              
+            string[] contactInfo = new string[4];
+
+
             do
             {
                 Console.WriteLine("******Welcome to my address book program*********");
@@ -46,6 +38,7 @@ namespace AddressBook
                 Console.WriteLine("*Press 4 to Save addressbook                    *");
                 Console.WriteLine("*Press 5 to Exit                                *");
                 Console.WriteLine("*************************************************");
+                Console.Write(">");
                 string choice = "USER CHOICE";
                 choice = Console.ReadLine();
                 switch (choice)
@@ -55,52 +48,74 @@ namespace AddressBook
                         Console.WriteLine("Add new contact !");
                         Console.WriteLine("Please Enter your name");
                         string input = Console.ReadLine();
-                        name = input;
+                        contactInfo[0] = input;
                         //------------------------------------------------
                         Console.WriteLine("Please Enter your address");
                         input = Console.ReadLine();
-                        address = input;
+                        contactInfo[1] = input;
                         //----------------------------------------------
                         Console.WriteLine("Please Enter your Email");
                         input = Console.ReadLine();
-                        email = input;
+                        contactInfo[2] = input;
                         //----------------------------------------------
                         Console.WriteLine("Please Enter your Telephone number");
                         input = Console.ReadLine();
-                        telephone = input;
+                        contactInfo[3] = input;
                         //--------------------------------------------------
-                        personlist.Add(new Person(name, address, telephone, email));
+                        personlist.Add(new Person(contactInfo[0], contactInfo[1], contactInfo[2], contactInfo[3]));
                         break;
                     case "2":
                         Console.Clear();
                         Console.WriteLine("Remove contact ");
                         Console.WriteLine("Type the contact's name.");
-                        string contactName = Console.ReadLine();
-                        DeleteLinesFromFile(contactName);
+                        string contactTobeRemoved = Console.ReadLine();
+                        //DeleteLinesFromFile(contactName);
+                        
+                        
+                        
+                        
+                        bool found = false;
+                        string[] splitedEntries = new string[100000000];
+                        for (int i = 0; i < personlist.Count(); i++)
+                        {
+                            if (personlist[i].Name == contactTobeRemoved) 
+                            found = true;
+                        }
+                        strFilePath = "C:\\Users\\Filip\\source\\repos\\CskapBasic\\PROGMET\\AddressList\\AddressBook\\Entries.lis";
+
+
+
+
+
+
+                        using (StreamReader reader = new StreamReader(strFilePath))
+                        {
+                            string line;
+                            while ((line = reader.ReadLine()) != null)                            // Read line by line  
+                            {
+                                splitedEntries = line.Split(';');
+                                
+                            }
+                        }
+                        for (int i = 0; i < splitedEntries.Length; i++)
+                        {
+
+                        }
+
+
 
                         break;
                     case "3":
                         Console.Clear();
-                        Console.WriteLine("Here is a list of the stored contacts that you have entered so far");
+                        Console.WriteLine("Here is a list of the saved entries that you have entered so far");
                         Console.WriteLine("******************************************************************************");
-                        #region OLD
-                        //foreach (Person p in personlist)
-                        //{
-                        //    Console.WriteLine("Name: " + p.Name + "\n" +
-                        //                      "Address: " + p.Address + "\n" +
-                        //                      "Telephone number: " + p.Telephone + "\n" +
-                        //                      "Email: " + p.Email + "\n");
-                        //    Console.WriteLine("------------------");
-                        //} 
-                        #endregion
-                        string strFilePath = "C:\\Users\\Filip\\source\\repos\\CskapBasic\\PROGMET\\AddressList\\AddressBook\\TextFile1.txt";
+                        strFilePath = "C:\\Users\\Filip\\source\\repos\\CskapBasic\\PROGMET\\AddressList\\AddressBook\\Entries.lis";
                         using (StreamReader reader = new StreamReader(strFilePath))
                         {
                             string line;
-                            // Read line by line  
-                            Console.WriteLine("Name;Address;Telephone;Email");
+                            Console.WriteLine("Name;Address;Email;Telephone");
                             Console.WriteLine("************************************");
-                            while ((line = reader.ReadLine()) != null)
+                            while ((line = reader.ReadLine()) != null)                            // Read line by line  
                             {
                                 Console.WriteLine(line);
                                 Console.WriteLine("-------------------------------");
@@ -111,9 +126,13 @@ namespace AddressBook
                         break;
                     case "4":
                         Console.Clear();
-                        StreamWriter writer = new StreamWriter(@"C:\Users\Filip\source\repos\CskapBasic\PROGMET\AddressList\AddressBook\TextFile1.txt"); // Create a new file.
-                        writer.Write(name + ";" + address + ";" + telephone + ";" + email + "\n");
-                        writer.Close(); 
+                        using (StreamWriter writer = new StreamWriter(@"C:\Users\Filip\source\repos\CskapBasic\PROGMET\AddressList\AddressBook\Entries.lis"))
+                        {
+                            for (int i = 0; i < personlist.Count; i++)
+                            {
+                                writer.WriteLine(personlist[i].Name + ";" + personlist[i].Address + ";" + personlist[i].Email + ";" + personlist[i].Telephone);
+                            }
+                        }
                         Console.WriteLine("Contact saved");
                         Console.WriteLine("******************************************************************************");
                         break;
@@ -135,3 +154,4 @@ namespace AddressBook
     }
 
 }
+

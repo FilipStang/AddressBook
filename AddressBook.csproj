@@ -49,6 +49,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="Entries.lis" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="TextFile1.txt" />

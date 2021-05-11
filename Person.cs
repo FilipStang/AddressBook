@@ -6,17 +6,17 @@ using System.Threading.Tasks;
 
 namespace AddressBook
 {
-    class Person
+    public class Person
     {
         public string Name { get; set; }
         public string Address { get; set; }
         public string Telephone { get; set; }
         public string Email { get; set; }
-
         public Person()
         {
 
         }
+
         public Person(string name, string address, string telephone, string email)
         {
             this.Address = address;
